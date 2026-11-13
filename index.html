@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>鹈鹕骑士 · Pelican Rider 3D</title>
+<style>
+  html,body{margin:0;height:100%;overflow:hidden;background:#0a1020;font-family:-apple-system,"PingFang SC","Microsoft YaHei",system-ui,sans-serif}
+  #app{position:fixed;inset:0}
+  #vignette{position:fixed;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(8,14,28,.35) 100%)}
+  .ui{position:fixed;z-index:5;color:#fff;user-select:none}
+  #title{top:18px;left:22px;pointer-events:none;text-shadow:0 2px 12px rgba(10,30,60,.5)}
+  #title h1{margin:0;font-size:26px;letter-spacing:1px}
+  #title p{margin:4px 0 0;font-size:13px;opacity:.85}
+  #hud{top:20px;right:22px;text-align:right;pointer-events:none;font-variant-numeric:tabular-nums;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+  #hud .big{font-size:30px;font-weight:700}
+  #hud .lbl{font-size:11px;opacity:.8;letter-spacing:2px}
+  #bar{bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:10px;align-items:center;padding:10px 14px;background:rgba(12,18,34,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.14);border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,.35);flex-wrap:wrap;justify-content:center;max-width:94vw}
+  .btn{cursor:pointer;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;padding:8px 13px;border-radius:999px;font-size:13px;transition:.18s}
+  .btn:hover{background:rgba(255,255,255,.2)}
+  .btn.on{background:#ffb238;color:#20242c;border-color:#ffcf7a;font-weight:600}
+  #speed{-webkit-appearance:none;appearance:none;width:130px;height:4px;border-radius:2px;background:rgba(255,255,255,.25);outline:none;cursor:pointer}
+  #speed::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#ffb238;cursor:pointer;box-shadow:0 0 8px rgba(255,178,56,.8)}
+  #speed::-moz-range-thumb{width:16px;height:16px;border:none;border-radius:50%;background:#ffb238;cursor:pointer}
+  #hint{bottom:20px;left:22px;font-size:12px;opacity:.7;pointer-events:none;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+  #credit{bottom:20px;right:22px;font-size:11px;opacity:.55;pointer-events:none}
+  #loading{position:fixed;inset:0;z-index:9;display:flex;flex-direction:column;gap:14px;align-items:center;justify-content:center;background:#0a1020;color:#9fc4ff;transition:opacity .5s}
+  .spin{width:36px;height:36px;border-radius:50%;border:3px solid rgba(255,255,255,.15);border-top-color:#ffb238;animation:sp 1s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  #err{position:fixed;inset:0;z-index:10;display:none;align-items:center;justify-content:center;background:#0a1020;color:#ff9c9c;padding:30px;text-align:center}
+  @media (max-width:640px){#title h1{font-size:20px}#hud .big{font-size:22px}#hint{display:none}}
+</style>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+</script>
+</head>
+<body>
+<div id="app"></div>
+<div id="vignette"></div>
+<div id="loading"><div class="spin"></div><div>正在召唤一只骑车的鹈鹕……</div></div>
+<div id="err"><div>:( 加载失败了 —— 请检查网络或换个支持 WebGL 的现代浏览器。</div></div>
+<div id="title" class="ui"><h1>🚲 鹈鹕骑士</h1><p>PELICAN RIDER · 一只鹈鹕和它的小红车</p></div>
+<div id="hud" class="ui"><div class="big" id="spd">0.0</div><div class="lbl">KM/H</div></div>
+<div id="bar" class="ui">
+  <input id="speed" type="range" min="0" max="100" value="55" aria-label="速度"/>
+  <button id="btnNight" class="btn">🌙 夜晚</button>
+  <button id="btnWings" class="btn">🪽 展翅</button>
+  <button id="btnOrbit" class="btn">🎥 环绕</button>
+  <button id="btnBell" class="btn">🔔 铃铛</button>
+  <button id="btnMusic" class="btn">🎵 音乐</button>
+</div>
+<div id="hint" class="ui">🖱️ 拖拽旋转 · 滚轮缩放 · 右键平移</div>
+<div id="credit" class="ui">molmi 🦉 × three.js · 程序化生成 · 零模型文件</div>
+<script>window.addEventListener('error',function(){var l=document.getElementById('loading'),e=document.getElementById('err');if(l&&l.style.display!=='none'&&e){e.style.display='flex';l.style.display='none';}},true);</script>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
